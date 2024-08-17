@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import axios from "axios";
 import cors, { CorsOptions } from "cors"
+import AuthMiddleware from "./middlewares/auth";
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ const corsOptions: CorsOptions = {
 }
 
 app.use(cors(corsOptions))
-
+app.use(AuthMiddleware)
 const port = process.env.PORT || 3000;
 
 
