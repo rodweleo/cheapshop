@@ -3,7 +3,7 @@
   "type": "commonjs",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts",
+  "main": "public/index.js",
   "scripts": {
     "build": "node -v && npm -v && npm clean-install && npx tsc",
     "dev": "nodemon src/index.ts",
