@@ -1,19 +1,11 @@
-import axios from "axios";
-
 export async function generatePaypalAuthToken(){
-    try{
-        const response = await axios.post(`${process.env.PAYPAL_BASE_URL}/v1/oauth2/token`, {}, {
-            auth: {
-                username: process.env.PAYPAL_CLIENT_ID!,
-                password: process.env.PAYPAL_CLIENT_SECRET!
-            },
-            headers: {
-                "Content-Type": "application/x-www-urlencoded"
-            }
-        })
-
-        return response.data.access_token
-    }catch (e){
-        return ""
-    }
+    const auth = `${process.env.PAYPAL_CLIENT_ID!}:process.env.PAYPAL_CLIENT_SECRET!`
+    fetch(`${process.env.PAYPAL_BASE_URL}/v1/oauth2/token`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-urlencoded",
+            "Authorization": `Basic ${Buffer.from(auth).toString("base64")}`
+        },
+        body: auth
+    }).then(res => res.json()).then(json => json.access_token)
 }

@@ -22,9 +22,16 @@ app.use(AuthMiddleware)
 const port = process.env.PORT || 3000;
 
 
-app.get("", (req, res) => {
-  res.send("Cheapshop server is live.")
+app.get("/", async (req, res) => {
+  try{
+    const token = await generatePaypalAuthToken()
+    res.send(token)
+  }catch(e){
+    res.send(e)
+  }
 })
+
+
 
 app.post("/api/payments/paypal/create-order", async (req, res) => {
   const access_token = await generatePaypalAuthToken()
@@ -44,9 +51,6 @@ app.post("/api/payments/paypal/create-order", async (req, res) => {
     res.json(e)
   }
 })
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
