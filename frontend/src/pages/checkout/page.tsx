@@ -8,7 +8,7 @@ export default function Checkout(){
     
     const createPaypalOrder = async () => {
         
-        return await axios.post("http://localhost:8088/api/payments/paypal/create-order", {
+        return await axios.post("https://api-cheapshop.vercel.app/api/payments/paypal/create-order", {
             "intent": "CAPTURE",
             "purchase_units": [
               {
