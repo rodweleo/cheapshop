@@ -9,7 +9,9 @@ const app: Express = express();
 app.use(express.json())
 
 const corsOptions: CorsOptions = {
-  origin: ["http://localhost:5173", "cheapshop.vercel.app"]
+  origin: ["http://localhost:5173", "https://cheapshop.vercel.app"],
+  optionsSuccessStatus: 200,
+  credentials: true,
 }
 
 app.use(cors(corsOptions))
