@@ -36,7 +36,7 @@ app.post("/api/payments/paypal/create-order", async (req, res) => {
 
     res.json(response)
   }catch(e){
-    return res.json(e)
+    res.json(e)
   }
 })
 app.get("/", (req: Request, res: Response) => {
