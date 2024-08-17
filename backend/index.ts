@@ -32,10 +32,10 @@ app.post("/api/payments/paypal/create-order", async (req, res) => {
   try{
     const response = await axios.post("https://api-m.sandbox.paypal.com/v2/checkout/orders", req.body, {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
         'PayPal-Request-Id': generateRandomId(),
         'Authorization': `Bearer ${access_token}`
-    }
+      },
     })
 
     res.json(response)
