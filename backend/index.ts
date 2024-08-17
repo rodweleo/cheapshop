@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import axios from "axios";
 import cors, { CorsOptions } from "cors"
 import AuthMiddleware from "./middlewares/auth";
+import { generatePaypalAuthToken } from "./functions/generatePaypalAuthToken";
+import { generateRandomId } from "./functions/generateRandomId";
 
 dotenv.config();
 
@@ -25,12 +27,14 @@ app.get("", (req, res) => {
 })
 
 app.post("/api/payments/paypal/create-order", async (req, res) => {
+  const access_token = await generatePaypalAuthToken()
+
   try{
     const response = await axios.post("https://api-m.sandbox.paypal.com/v2/checkout/orders", req.body, {
       headers: {
         'Content-Type': 'application/json',
-        'PayPal-Request-Id': '7b92603e-77ed-4896-8e78-5dea2050476a',
-        'Authorization': 'Bearer 6V7rbVwmlM1gFZKW_8QtzWXqpcwQ6T5vhEGYNJDAAdn3paCgRpdeMdVYmWzgbKSsECednupJ3Zx5Xd-g'
+        'PayPal-Request-Id': generateRandomId(),
+        'Authorization': `Bearer ${access_token}`
     }
     })
 

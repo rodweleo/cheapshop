@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import axios from "axios";
 
 export default function Checkout(){
     const [{ isPending }] = usePayPalScriptReducer();
-    
+    const {toast} = useToast()
+
     const createPaypalOrder = async () => {
         
         return await axios.post("https://api-cheapshop.vercel.app/api/payments/paypal/create-order", {
@@ -24,7 +26,11 @@ export default function Checkout(){
                 "Access-Control-Allow-Origin": "*"
             }
         }).then((response) => {
-            console.log(response)
+            toast({
+                description: response.data.message
+            })
+        }).catch((error) => {
+            console.log(error)
         })
     }
 
