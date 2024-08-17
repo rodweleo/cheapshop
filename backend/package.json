@@ -3,10 +3,10 @@
   "type": "commonjs",
   "version": "1.0.0",
   "description": "",
-  "main": "public/index.js",
+  "main": "index.ts",
   "scripts": {
     "build": "node -v && npm -v && npm clean-install && npx tsc",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
