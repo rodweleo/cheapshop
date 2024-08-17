@@ -1,11 +1,19 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import axios from "axios";
+import cors, { CorsOptions } from "cors"
 
 dotenv.config();
 
 const app: Express = express();
 app.use(express.json())
+
+const corsOptions: CorsOptions = {
+  origin: ["http://localhost:5173", "cheapshop.vercel.app"]
+}
+
+app.use(cors(corsOptions))
+
 const port = process.env.PORT || 3000;
 
 
