@@ -1,29 +1,25 @@
+import { useDispatch } from "react-redux";
 import { Button } from "./ui/button";
-import { useToast } from "./ui/use-toast";
+import { addProductToCart } from "@/slices/cartSlice";
+import { toast } from "react-toastify";
+import { ProductProps } from "@/utils/interfaces";
 
-export default function ProductCard({product}){
-    const { toast } = useToast()
 
-    const addToCart = (product) => {
-        const cart = localStorage.getItem("cart") ?? ""
+export default function ProductCard({ product }: {
+    product: ProductProps
+}) {
+    const dispatch = useDispatch();
 
-        if(cart){
-            const parsedCart = JSON.parse(cart)
-            localStorage.setItem("cart", JSON.stringify([...parsedCart, product]))
-            toast({
-                description: 'Added to cart'
-            })
-        }else{
-            localStorage.setItem("cart", JSON.stringify([product]))
-            toast({
-                description: 'Added to cart'
-            })
-        }
+    const addToCart = () => {
+        console.log(dispatch(addProductToCart(product)))
+        toast.success("Product added to cart successully.", {
+            theme: "colored"
+        })
     }
 
-    return <div className="bg-white p-5 max-w-xs h-[500px] rounded-xl space-y-2.5 flex flex-col justify-between">
+    return <div className="bg-white p-2.5 w-[300px]  rounded-xl space-y-2.5 flex flex-col justify-between">
         <div className="space-y-1">
-            <img src={product.thumbnail} className="rounded-lg" alt={product.title}/>
+            <img src={product.thumbnail} className="rounded-lg" alt={product.title} />
             <h1 className="font-bold text-xl line-clamp-1">{product.title}</h1>
             <p className="text-slate-400 line-clamp-2">{product.description}</p>
         </div>
@@ -34,6 +30,6 @@ export default function ProductCard({product}){
             })}
             </span>
         </div>
-        <Button onClick={() => addToCart(product)}>Add to Cart</Button>
+        <Button onClick={addToCart}>Add to Cart</Button>
     </div>
 }

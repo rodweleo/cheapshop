@@ -1,6 +1,9 @@
+import { ReviewProps } from "@/utils/interfaces";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
-export default function ProductReviewCard({ review }) {
+export default function ProductReviewCard({ review }: {
+    review: ReviewProps
+}) {
     return <div className="flex gap-2">
         <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" alt={review.reviewerName} />

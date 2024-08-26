@@ -1,15 +1,15 @@
 import { useProductsCategoriesQuery } from "@/hooks/useProductsCategoriesQuery";
-import Error from "./error";
+import { CategoryProps } from "@/utils/types";
 
 export default function ProductsCategories() {
     const { isFetching, error, categories } = useProductsCategoriesQuery();
     return (
-        <div className='bg-white w-fit space-y-2.5 p-5'>
-            {error && <Error error={error}/>}
+        <div className='bg-white w-full space-y-2.5 p-5  rounded-md drop-shadow-xl'>
+            {error && <p>Something went wrong: {error.message}</p>}
             {isFetching && <p>Loading...</p>}
-            <div className="category-nav">
+            <div className="category-nav h-full max-w-[300px]">
                 {
-                    categories && categories.map((category) => (
+                    categories && categories.map((category: CategoryProps) => (
                         <a href={`/categories/${category.slug}/`} key={category.name} className='font-semibold'> {category.name}</a>
                     ))
                 }

@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
-export const useCategoriesProductsQuery = (categoryName) => {
+export const useCategoriesProductsQuery = (categoryName: string | undefined) => {
     const { isFetching, error, data } = useQuery({
         queryKey: ['category-products'],
         queryFn: () =>
-          axios.get(`https://dummyjson.com/products/category/${categoryName}`).then((response) => {
+          axios.get(`https://dummyjson.com/products/category/${categoryName!}`).then((response) => {
             return response.data.products
           })
     })

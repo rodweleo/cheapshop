@@ -1,6 +1,7 @@
 import ProductCard from "@/components/product-card"
 import { useCategoriesProductsQuery } from "@/hooks/useCategoriesProductsQuery"
-import { useParams } from "react-router-dom"
+import { ProductProps } from "@/utils/interfaces"
+import { Link, useParams } from "react-router-dom"
 
 export default function CategoryPage () {
     const { id } = useParams()
@@ -9,9 +10,9 @@ export default function CategoryPage () {
     return <section className="w-full h-full">
         {isFetching && <div>Loading...</div>}
         <ul className="flex flex-wrap gap-5">
-            {category_products && category_products.map((product) => (
+            {category_products && category_products.map((product: ProductProps) => (
                 <li key={product.title}>
-                    <a href={`/products/${encodeURIComponent(product.title.concat("_", product.id))}`}><ProductCard product={product}/></a>
+                    <Link to={`/products/${encodeURIComponent(product.title.concat("_", product.id.toString()))}`}><ProductCard product={product}/></Link>
                 </li>
             ))}
         </ul>
